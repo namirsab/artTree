@@ -7,6 +7,7 @@ import { Mongo } from 'meteor/mongo';
     parent: null || id,
     children: null || [id],
     content: [miscelannea]
+    level: Number
 }
 */
 class TreeNodeCollection extends Mongo.Collection {
@@ -34,6 +35,37 @@ class TreeNodeCollection extends Mongo.Collection {
         }
         // Default return
         return [];
+    }
+
+    getNodesFromLevel(treeId, level) {
+        return this.find({
+            treeId,
+            level,
+        }).fetch();
+    }
+
+    appendChild(treeId, parentId, content) {
+        const parent = this.findOne({ treeId, _id: parentId });
+        let newNodeId;
+        if (parent) {
+            const newNode = {
+                parent: parentId,
+                level: parent.level + 1,
+                treeId,
+                content,
+            };
+            newNodeId = this.insert(newNode);
+            this.update(parentId, {
+                $push: {
+                    children: newNodeId,
+                },
+            });
+        }
+        return newNodeId;
+    }
+
+    count(treeId) {
+        return this.find({ treeId }).count();
     }
 }
 
