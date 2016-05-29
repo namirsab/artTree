@@ -1,9 +1,16 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 
-const HelloWorld = () => (
+const renderTree = treeId => treeId;
+
+const App = ({ treeId }) => (
     <div>
-        <h1>Hello World</h1>
+        {renderTree(treeId)}
     </div>
 );
 
-export default HelloWorld;
+App.propTypes = {
+    treeId: React.propTypes.number,
+};
+
+export default App;

@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { Mongo } from 'meteor/mongo';
+import { _ } from 'meteor/underscore';
 /*
 {
     _id: 'aNode',
@@ -10,6 +11,23 @@ import { Mongo } from 'meteor/mongo';
     level: Number
 }
 */
+
+function toObject(treeNodes, n) {
+    const tree = {
+        [n._id]: Object.assign({}, n, {
+            children: Object.assign.apply(Object,
+                [_(n.children).isArray() ?
+                    n.children
+                        .map(childId => treeNodes.findOne(childId))
+                        .reduce((subTree, node) =>
+                            Object.assign(subTree, toObject(treeNodes, node)), {})
+                    :
+                    null,
+                ]),
+        }),
+    };
+    return tree;
+}
 class TreeNodeCollection extends Mongo.Collection {
     // Traverse till root from node
     getRoot(treeId) {
@@ -18,6 +36,12 @@ class TreeNodeCollection extends Mongo.Collection {
             parent: null,
         });
     }
+
+    getTree(treeId, tillLevel){
+        const root = this.getRoot(treeId);
+        return toObject(this, root);
+    }
+
     getContentFromRootTo(treeId, nodeId) {
         return this.getNodesFromRootTo(treeId, nodeId)
             .map(node => node.content);
@@ -42,6 +66,15 @@ class TreeNodeCollection extends Mongo.Collection {
             treeId,
             level,
         }).fetch();
+    }
+
+    createTree(treeId, content) {
+        return this.insert({
+            treeId,
+            content,
+            parent: null,
+            level: 0,
+        });
     }
 
     appendChild(treeId, parentId, content) {

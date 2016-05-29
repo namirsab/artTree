@@ -151,6 +151,54 @@ describe('TreeNodes Collection', function () {
         });
     });
 
+    describe('TreeNodes.getTree(treeId, tillLevel)', function () {
+        it('should return all nodes inside a tree structure', function () {
+            expect(TreeNodes.getTree('testTree')).to.deep.equals({
+                root: {
+                    _id: 'root',
+                    content: 'root',
+                    level: 0,
+                    children: {
+                        root0: {
+                            _id: 'root0',
+                            content: 'root0',
+                            level: 1,
+                            children: {
+                                root00: {
+                                    _id: 'root00',
+                                    content: 'root00',
+                                    level: 2,
+                                },
+                                root01: {
+                                    _id: 'root01',
+                                    content: 'root01',
+                                    level: 2,
+                                },
+                            },
+                        },
+                        root1: {
+                            _id: 'root1',
+                            content: 'root1',
+                            level: 1,
+                            children: {
+                                root10: {
+                                    _id: 'root10',
+                                    content: 'root10',
+                                    level: 2,
+                                },
+                                root11: {
+                                    _id: 'root11',
+                                    content: 'root11',
+                                    level: 2,
+                                },
+                            },
+                        },
+                    },
+                },
+            });
+        });
+    });
+
     describe('TreeNodes.getNodesFromLevel(treeId, level)', function () {
         it('should return all the nodes for the given level for the given tree', function () {
             const expectedLevel0 = ['root'];
@@ -164,6 +212,20 @@ describe('TreeNodes Collection', function () {
                 .to.include.members(expectedLevel2);
             expect(TreeNodes.getNodesFromLevel('testTree', 3).map(n => n._id))
                 .to.deep.equal([]);
+        });
+    });
+
+    describe('TreeNodes.createTree(treeId, content)', function () {
+        it('should create a new root node for a new tree, returning the nodeId', function () {
+            const rootId = TreeNodes.createTree('anotherTree', 'testContent');
+            const rootNode = TreeNodes.findOne(rootId);
+            expect(rootNode).to.deep.equals({
+                _id: rootId,
+                treeId: 'anotherTree',
+                level: 0,
+                content: 'testContent',
+                parent: null,
+            });
         });
     });
 
