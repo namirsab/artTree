@@ -2,11 +2,17 @@
   "name": "art-tree",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run -p 3000",
+    "test": "meteor test --driver-package practicalmeteor:mocha -p 3100"
   },
   "dependencies": {
     "meteor-node-stubs": "~0.2.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.11.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-react": "^5.1.1"
   }
 }

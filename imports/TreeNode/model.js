@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+import { _ } from 'meteor/underscore';
 class TreeNode {
     constructor(doc) {
         _.extend(this, doc);
@@ -7,7 +9,7 @@ class TreeNode {
     hasParent() { return !!this.parent; }
     hasChildren() { return !!(this.children && this.children.length); }
     getType() { return this.type; }
-};
+}
 
 class TextTreeNode extends TreeNode {
     constructor(doc) {
@@ -17,9 +19,9 @@ class TextTreeNode extends TreeNode {
 
         super(doc);
     }
-};
+}
 
 export {
     TreeNode,
-    TextTreeNode
+    TextTreeNode,
 };
