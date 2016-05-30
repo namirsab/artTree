@@ -152,6 +152,10 @@ describe('TreeNodes Collection', function () {
     });
 
     describe('TreeNodes.getTree(treeId, tillLevel)', function () {
+        it('should return undefined if the tree does not exist', function () {
+            const treeObject = TreeNodes.getTree('nonExistingTree');
+            expect(treeObject).to.equal(undefined);
+        });
         it('should return all nodes inside a tree structure', function () {
             const treeObject = TreeNodes.getTree('testTree');
             expect(treeObject).to.deep.equals({

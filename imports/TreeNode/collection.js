@@ -40,7 +40,7 @@ class TreeNodeCollection extends Mongo.Collection {
 
     getTree(treeId) {
         const root = this.getRoot(treeId);
-        return toObject(this, root);
+        return root ? toObject(this, root) : undefined;
     }
 
     getContentFromRootTo(treeId, nodeId) {
