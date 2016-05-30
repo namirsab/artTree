@@ -13,16 +13,17 @@ import { _ } from 'meteor/underscore';
 */
 
 function toObject(treeNodes, n) {
+    const localNode = _(n).omit('treeId');
     const tree = {
-        [n._id]: Object.assign({}, n, {
+        [localNode._id]: Object.assign({}, localNode, {
             children: Object.assign.apply(Object,
-                [_(n.children).isArray() ?
-                    n.children
+                [_(localNode.children).isArray() ?
+                    localNode.children
                         .map(childId => treeNodes.findOne(childId))
                         .reduce((subTree, node) =>
                             Object.assign(subTree, toObject(treeNodes, node)), {})
                     :
-                    null,
+                    {},
                 ]),
         }),
     };
@@ -37,7 +38,7 @@ class TreeNodeCollection extends Mongo.Collection {
         });
     }
 
-    getTree(treeId, tillLevel){
+    getTree(treeId) {
         const root = this.getRoot(treeId);
         return toObject(this, root);
     }

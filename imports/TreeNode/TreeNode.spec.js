@@ -153,26 +153,33 @@ describe('TreeNodes Collection', function () {
 
     describe('TreeNodes.getTree(treeId, tillLevel)', function () {
         it('should return all nodes inside a tree structure', function () {
-            expect(TreeNodes.getTree('testTree')).to.deep.equals({
+            const treeObject = TreeNodes.getTree('testTree');
+            expect(treeObject).to.deep.equals({
                 root: {
                     _id: 'root',
                     content: 'root',
                     level: 0,
+                    parent: null,
                     children: {
                         root0: {
                             _id: 'root0',
                             content: 'root0',
                             level: 1,
+                            parent: 'root',
                             children: {
                                 root00: {
                                     _id: 'root00',
                                     content: 'root00',
                                     level: 2,
+                                    parent: 'root0',
+                                    children: {},
                                 },
                                 root01: {
                                     _id: 'root01',
                                     content: 'root01',
                                     level: 2,
+                                    parent: 'root0',
+                                    children: {},
                                 },
                             },
                         },
@@ -180,16 +187,21 @@ describe('TreeNodes Collection', function () {
                             _id: 'root1',
                             content: 'root1',
                             level: 1,
+                            parent: 'root',
                             children: {
                                 root10: {
                                     _id: 'root10',
                                     content: 'root10',
                                     level: 2,
+                                    children: {},
+                                    parent: 'root1',
                                 },
                                 root11: {
                                     _id: 'root11',
                                     content: 'root11',
                                     level: 2,
+                                    children: {},
+                                    parent: 'root1',
                                 },
                             },
                         },
