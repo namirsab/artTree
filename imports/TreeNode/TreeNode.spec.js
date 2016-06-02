@@ -233,12 +233,13 @@ describe('TreeNodes Collection', function () {
 
     describe('TreeNodes.createTree(treeId, content)', function () {
         it('should create a new root node for a new tree, returning the nodeId', function () {
-            const rootId = TreeNodes.createTree('anotherTree', 'testContent');
+            const rootId = TreeNodes.createTree('anotherTree', 'testLabel', 'testContent');
             const rootNode = TreeNodes.findOne(rootId);
             expect(rootNode).to.deep.equals({
                 _id: rootId,
                 treeId: 'anotherTree',
                 level: 0,
+                label: 'testLabel',
                 content: 'testContent',
                 parent: null,
             });
