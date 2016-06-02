@@ -250,13 +250,14 @@ describe('TreeNodes Collection', function () {
         it(`should insert a new node adding automatically the level, returning the nodeId
             The parent should have the new child id inside its children array`, function () {
             const content = 'hello';
-            const nodeId = TreeNodes.appendChild('testTree', 'root', content);
+            const nodeId = TreeNodes.appendChild('testTree', 'root', 'testLabel', content);
             const node = TreeNodes.findOne(nodeId);
             expect(node).to.deep.equals({
                 _id: nodeId,
                 treeId: 'testTree',
                 level: 1,
                 content,
+                label: 'testLabel',
                 parent: 'root',
             });
             const parent = TreeNodes.findOne('root');

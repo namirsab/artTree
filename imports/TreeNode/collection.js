@@ -79,7 +79,7 @@ class TreeNodeCollection extends Mongo.Collection {
         });
     }
 
-    appendChild(treeId, parentId, content) {
+    appendChild(treeId, parentId, label, content) {
         const parent = this.findOne({ treeId, _id: parentId });
         let newNodeId;
         if (parent) {
@@ -87,6 +87,7 @@ class TreeNodeCollection extends Mongo.Collection {
                 parent: parentId,
                 level: parent.level + 1,
                 treeId,
+                label,
                 content,
             };
             newNodeId = this.insert(newNode);
