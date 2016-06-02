@@ -6,12 +6,11 @@ dependencies:
     - curl https://install.meteor.com | /bin/sh
     - meteor remove practicalmeteor:mocha
     - meteor add dispatch:mocha-phantomjs
-    - meteor test --once --driver-package dispatch:mocha-phantomjs
 # checkout:
 test:
   override:
     # run command line tests with velocity
-    - meteor npm run test-ci
+    - meteor test --once --driver-package dispatch:mocha-phantomjs
 
 
 # deployment:
