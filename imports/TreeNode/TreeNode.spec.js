@@ -16,6 +16,7 @@ function createTree(treeId, levels, childrenPerNode, outTree) {
             treeId,
             content: 'root',
             level: 0,
+            label: 'root',
             parent: null,
         };
         outTree.push(root);
@@ -29,6 +30,7 @@ function createTree(treeId, levels, childrenPerNode, outTree) {
                 content: parent._id + i,
                 treeId,
                 level: parent.level + 1,
+                label: parent._id + i,
                 parent: parent._id,
             };
             outTree.push(child);
@@ -164,17 +166,20 @@ describe('TreeNodes Collection', function () {
                     content: 'root',
                     level: 0,
                     parent: null,
+                    label: 'root',
                     children: {
                         root0: {
                             _id: 'root0',
                             content: 'root0',
                             level: 1,
+                            label: 'root0',
                             parent: 'root',
                             children: {
                                 root00: {
                                     _id: 'root00',
                                     content: 'root00',
                                     level: 2,
+                                    label: 'root00',
                                     parent: 'root0',
                                     children: {},
                                 },
@@ -182,6 +187,7 @@ describe('TreeNodes Collection', function () {
                                     _id: 'root01',
                                     content: 'root01',
                                     level: 2,
+                                    label: 'root01',
                                     parent: 'root0',
                                     children: {},
                                 },
@@ -191,12 +197,14 @@ describe('TreeNodes Collection', function () {
                             _id: 'root1',
                             content: 'root1',
                             level: 1,
+                            label: 'root1',
                             parent: 'root',
                             children: {
                                 root10: {
                                     _id: 'root10',
                                     content: 'root10',
                                     level: 2,
+                                    label: 'root10',
                                     children: {},
                                     parent: 'root1',
                                 },
@@ -204,6 +212,7 @@ describe('TreeNodes Collection', function () {
                                     _id: 'root11',
                                     content: 'root11',
                                     level: 2,
+                                    label: 'root11',
                                     children: {},
                                     parent: 'root1',
                                 },
