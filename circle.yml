@@ -1,3 +1,6 @@
+machine:
+  node:
+    version: 0.10.43
 dependencies:
   pre:
     - curl https://install.meteor.com | /bin/sh
@@ -6,7 +9,7 @@ dependencies:
 test:
   override:
     # run command line tests with velocity
-    - meteor npm run test
+    - meteor npm run test-ci
 
 
 # deployment:
