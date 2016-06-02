@@ -22,4 +22,3 @@ insecure                # Allow all DB writes from clients (for prototyping)
 hwillson:stub-collections
 practicalmeteor:chai
 dispatch:mocha-phantomjs
-practicalmeteor:mocha

@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run -p 3000",
-    "test": "meteor test --driver-package practicalmeteor:mocha -p 3100",
-    "test-ci": "meteor test --once --driver-package dispatch:mocha-phantomjs -p 3100"
+    "test": "eteor remove dispatch:mocha-phantomjs; meteor add practicalmeteor:mocha; meteor test --driver-package practicalmeteor:mocha -p 3100",
+    "test-ci": "meteor add dispatch:mocha-phantomjs; meteor remove practicalmeteor:mocha; meteor test --once --driver-package dispatch:mocha-phantomjs -p 3100"
   },
   "dependencies": {
     "meteor-node-stubs": "~0.2.0",
