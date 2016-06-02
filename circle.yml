@@ -1,0 +1,12 @@
+dependencies:
+  pre:
+    - curl https://install.meteor.com | /bin/sh
+    - meteor npm install
+# checkout:
+test:
+  override:
+    # run command line tests with velocity
+    - meteor npm run test
+
+
+# deployment:
