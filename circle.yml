@@ -1,0 +1,16 @@
+machine:
+  node:
+    version: 0.10.43
+dependencies:
+  pre:
+    - curl https://install.meteor.com | /bin/sh
+    - meteor remove practicalmeteor:mocha
+    - meteor add dispatch:mocha-phantomjs
+# checkout:
+test:
+  override:
+    # run command line tests with velocity
+    - meteor test --once --driver-package dispatch:mocha-phantomjs
+
+
+# deployment:

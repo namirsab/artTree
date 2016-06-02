@@ -1,9 +1,9 @@
 /* eslint-disable import/no-unresolved, prefer-arrow-callback, func-names, no-unused-expressions*/
+/* global describe, beforeEach, afterEach, it */
 import { TreeNode } from './model.js';
 import { TreeNodes } from './collection.js';
 import { chai } from 'meteor/practicalmeteor:chai';
 import StubCollections from 'meteor/hwillson:stub-collections';
-import { describe, it, beforeEach, afterEach } from 'meteor/practicalmeteor:mocha';
 import { _ } from 'meteor/underscore';
 const { expect } = chai;
 
