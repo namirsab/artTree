@@ -69,16 +69,18 @@ class TreeNodeCollection extends Mongo.Collection {
         }).fetch();
     }
 
-    createTree(treeId, content) {
+    createTree(treeId, treeLabel, nodeLabel, content) {
         return this.insert({
             treeId,
+            treeLabel,
+            label: nodeLabel,
             content,
             parent: null,
             level: 0,
         });
     }
 
-    appendChild(treeId, parentId, content) {
+    appendChild(treeId, parentId, label, content) {
         const parent = this.findOne({ treeId, _id: parentId });
         let newNodeId;
         if (parent) {
@@ -86,6 +88,7 @@ class TreeNodeCollection extends Mongo.Collection {
                 parent: parentId,
                 level: parent.level + 1,
                 treeId,
+                label,
                 content,
             };
             newNodeId = this.insert(newNode);

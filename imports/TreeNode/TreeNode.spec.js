@@ -15,7 +15,9 @@ function createTree(treeId, levels, childrenPerNode, outTree) {
             _id: 'root',
             treeId,
             content: 'root',
+            treeLabel: 'root',
             level: 0,
+            label: 'root',
             parent: null,
         };
         outTree.push(root);
@@ -29,6 +31,7 @@ function createTree(treeId, levels, childrenPerNode, outTree) {
                 content: parent._id + i,
                 treeId,
                 level: parent.level + 1,
+                label: parent._id + i,
                 parent: parent._id,
             };
             outTree.push(child);
@@ -164,17 +167,21 @@ describe('TreeNodes Collection', function () {
                     content: 'root',
                     level: 0,
                     parent: null,
+                    treeLabel: 'root',
+                    label: 'root',
                     children: {
                         root0: {
                             _id: 'root0',
                             content: 'root0',
                             level: 1,
+                            label: 'root0',
                             parent: 'root',
                             children: {
                                 root00: {
                                     _id: 'root00',
                                     content: 'root00',
                                     level: 2,
+                                    label: 'root00',
                                     parent: 'root0',
                                     children: {},
                                 },
@@ -182,6 +189,7 @@ describe('TreeNodes Collection', function () {
                                     _id: 'root01',
                                     content: 'root01',
                                     level: 2,
+                                    label: 'root01',
                                     parent: 'root0',
                                     children: {},
                                 },
@@ -191,12 +199,14 @@ describe('TreeNodes Collection', function () {
                             _id: 'root1',
                             content: 'root1',
                             level: 1,
+                            label: 'root1',
                             parent: 'root',
                             children: {
                                 root10: {
                                     _id: 'root10',
                                     content: 'root10',
                                     level: 2,
+                                    label: 'root10',
                                     children: {},
                                     parent: 'root1',
                                 },
@@ -204,6 +214,7 @@ describe('TreeNodes Collection', function () {
                                     _id: 'root11',
                                     content: 'root11',
                                     level: 2,
+                                    label: 'root11',
                                     children: {},
                                     parent: 'root1',
                                 },
@@ -233,12 +244,17 @@ describe('TreeNodes Collection', function () {
 
     describe('TreeNodes.createTree(treeId, content)', function () {
         it('should create a new root node for a new tree, returning the nodeId', function () {
-            const rootId = TreeNodes.createTree('anotherTree', 'testContent');
+            const rootId = TreeNodes.createTree(
+                'anotherTree', 'testTreeLabel',
+                'testNodeLabel', 'testContent'
+            );
             const rootNode = TreeNodes.findOne(rootId);
             expect(rootNode).to.deep.equals({
                 _id: rootId,
                 treeId: 'anotherTree',
                 level: 0,
+                treeLabel: 'testTreeLabel',
+                label: 'testNodeLabel',
                 content: 'testContent',
                 parent: null,
             });
@@ -249,13 +265,14 @@ describe('TreeNodes Collection', function () {
         it(`should insert a new node adding automatically the level, returning the nodeId
             The parent should have the new child id inside its children array`, function () {
             const content = 'hello';
-            const nodeId = TreeNodes.appendChild('testTree', 'root', content);
+            const nodeId = TreeNodes.appendChild('testTree', 'root', 'testLabel', content);
             const node = TreeNodes.findOne(nodeId);
             expect(node).to.deep.equals({
                 _id: nodeId,
                 treeId: 'testTree',
                 level: 1,
                 content,
+                label: 'testLabel',
                 parent: 'root',
             });
             const parent = TreeNodes.findOne('root');
