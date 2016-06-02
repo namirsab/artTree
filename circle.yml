@@ -4,7 +4,9 @@ machine:
 dependencies:
   pre:
     - curl https://install.meteor.com | /bin/sh
-    - meteor npm install
+    - meteor remove practicalmeteor:mocha
+    - meteor add dispatch:mocha-phantomjs
+    - meteor test --once --driver-package dispatch:mocha-phantomjs
 # checkout:
 test:
   override:
