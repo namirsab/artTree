@@ -69,10 +69,11 @@ class TreeNodeCollection extends Mongo.Collection {
         }).fetch();
     }
 
-    createTree(treeId, label, content) {
+    createTree(treeId, treeLabel, nodeLabel, content) {
         return this.insert({
             treeId,
-            label,
+            treeLabel,
+            label: nodeLabel,
             content,
             parent: null,
             level: 0,
