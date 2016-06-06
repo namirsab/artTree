@@ -43,17 +43,17 @@ class TreeNodeCollection extends Mongo.Collection {
         return root ? toObject(this, root) : {};
     }
 
-    getTreeAsArray(treeId) {
+    getTreeAsArray(treeId, tillLevel = Infinity) {
         const getLevel = level => {
             const levelsCursor = this.find({ treeId, level }, { sort: { label: 1 } });
             return levelsCursor.fetch();
         };
         let index = 0;
         const treeAsArray = [];
-        let level = getLevel(index++);
-        while (level.length) {
+        let level = getLevel(index);
+        while (level.length && tillLevel >= index) {
             treeAsArray.push(level);
-            level = getLevel(index++);
+            level = getLevel(++index);
         }
         return treeAsArray;
     }

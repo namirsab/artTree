@@ -232,10 +232,25 @@ describe('TreeNodes Collection', function () {
             ordered by label`, function () {
             const expected =
                 [['root'], ['root0', 'root1'], ['root00', 'root01', 'root10', 'root11']];
-            expect(_(TreeNodes.getTreeAsArray('testTree'))
+            expect(TreeNodes.getTreeAsArray('testTree')
                 .map(nodes => nodes.map(node => node.label)))
             .to.deep.equal(expected);
         });
+
+        it('should return only the levels till the one given', function () {
+            const expected =
+                [['root'], ['root0', 'root1'], ['root00', 'root01', 'root10', 'root11']];
+            expect(TreeNodes.getTreeAsArray('testTree', 0)
+                .map(nodes => nodes.map(node => node.label)))
+            .to.deep.equal(expected.slice(0, 1));
+            expect(TreeNodes.getTreeAsArray('testTree', 1)
+                .map(nodes => nodes.map(node => node.label)))
+            .to.deep.equal(expected.slice(0, 2));
+            expect(TreeNodes.getTreeAsArray('testTree', 2)
+                .map(nodes => nodes.map(node => node.label)))
+            .to.deep.equal(expected.slice(0, 3));
+        });
+
         it('should return an empty array if the tree is empty', function () {
             expect(TreeNodes.getTreeAsArray('nonExistingTree')).to.deep.equal([]);
         });
