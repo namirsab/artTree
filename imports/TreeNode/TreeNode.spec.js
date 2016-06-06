@@ -154,13 +154,13 @@ describe('TreeNodes Collection', function () {
         });
     });
 
-    describe('TreeNodes.getTree(treeId, tillLevel)', function () {
+    describe('TreeNodes.getTreeAsObject(treeId, tillLevel)', function () {
         it('should return undefined if the tree does not exist', function () {
-            const treeObject = TreeNodes.getTree('nonExistingTree');
-            expect(treeObject).to.equal(undefined);
+            const treeObject = TreeNodes.getTreeAsObject('nonExistingTree');
+            expect(treeObject).to.deep.equal({});
         });
         it('should return all nodes inside a tree structure', function () {
-            const treeObject = TreeNodes.getTree('testTree');
+            const treeObject = TreeNodes.getTreeAsObject('testTree');
             expect(treeObject).to.deep.equals({
                 root: {
                     _id: 'root',
@@ -223,6 +223,21 @@ describe('TreeNodes Collection', function () {
                     },
                 },
             });
+        });
+    });
+
+    describe('TreeNodes.getTreeAsArray(treeId, tillLevel)', function () {
+        it(`should return all the nodes inside an array of arrays, each subarray
+            each subarray containing all the nodes of level === index
+            ordered by label`, function () {
+            const expected =
+                [['root'], ['root0', 'root1'], ['root00', 'root01', 'root10', 'root11']];
+            expect(_(TreeNodes.getTreeAsArray('testTree'))
+                .map(nodes => nodes.map(node => node.label)))
+            .to.deep.equal(expected);
+        });
+        it('should return an empty array if the tree is empty', function () {
+            expect(TreeNodes.getTreeAsArray('nonExistingTree')).to.deep.equal([]);
         });
     });
 
