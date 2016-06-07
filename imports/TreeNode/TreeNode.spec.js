@@ -4,43 +4,8 @@ import { TreeNodes } from './collection.js';
 import { chai } from 'meteor/practicalmeteor:chai';
 import StubCollections from 'meteor/hwillson:stub-collections';
 import { describe, it, beforeEach, afterEach } from 'meteor/practicalmeteor:mocha';
-import { _ } from 'meteor/underscore';
+import { createTree } from './utils.js';
 const { expect } = chai;
-
-// Utility function to create a tree
-function createTree(treeId, levels, childrenPerNode, outTree) {
-    if (outTree.length === 0) {
-        // Add root
-        const root = {
-            _id: 'root',
-            treeId,
-            content: 'root',
-            treeLabel: 'root',
-            level: 0,
-            label: 'root',
-            parent: null,
-        };
-        outTree.push(root);
-    }
-
-    if (levels > 0) {
-        const parent = _(outTree).last();
-        const children = _(childrenPerNode).times(i => {
-            const child = {
-                _id: parent._id + i,
-                content: parent._id + i,
-                treeId,
-                level: parent.level + 1,
-                label: parent._id + i,
-                parent: parent._id,
-            };
-            outTree.push(child);
-            createTree(treeId, levels - 1, childrenPerNode, outTree);
-            return child;
-        });
-        parent.children = children.map(child => child._id);
-    }
-}
 
 describe('TreeNode', function () {
     describe('hasChildren', function () {
