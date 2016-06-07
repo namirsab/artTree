@@ -1,6 +1,11 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
+import { TreeNodes } from '/imports/TreeNode/collection.js';
 
 Meteor.startup(() => {
-  // code to run on server at startup
+    TreeNodes.remove({});
 });
+
+export {
+    TreeNodes,
+};

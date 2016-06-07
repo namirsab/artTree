@@ -6,9 +6,11 @@
     "test": "meteor test --driver-package practicalmeteor:mocha -p 3100"
   },
   "dependencies": {
+    "material-ui": "^0.15.0",
     "meteor-node-stubs": "~0.2.0",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "react-tap-event-plugin": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^2.11.0",
