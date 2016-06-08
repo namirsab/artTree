@@ -1,6 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import AppContainer from '/imports/ui/components/AppContainer.jsx';
+import MainLayout from '/imports/ui/layouts/MainLayout.jsx'
 import { Router, Route, browserHistory } from 'react-router';
 
 // Define route components
