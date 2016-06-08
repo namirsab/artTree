@@ -279,6 +279,14 @@ describe('TreeNodes Collection', function () {
         });
     });
 
+    describe('TreeNodes.getAllTrees()', function () {
+        it(`should return an array of objects, where each object contains
+            a label an a id of the tree`, function () {
+            const expected = [{ treeId: 'testTree', treeLabel: 'root' }];
+            expect(TreeNodes.getAllTrees()).to.deep.equal(expected);
+        });
+    });
+
     afterEach(function () {
         TreeNodes.remove({});
         StubCollections.restore();
