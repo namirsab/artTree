@@ -57,7 +57,12 @@ class TreeNodeCollection extends Mongo.Collection {
         }
         return treeAsArray;
     }
-
+    getAllTrees() {
+        return this.find({
+            parent: null,
+        })
+        .map(({ treeId, treeLabel }) => ({ treeId, treeLabel }));
+    }
     getContentFromRootTo(treeId, nodeId) {
         return this.getNodesFromRootTo(treeId, nodeId)
             .map(node => node.content);
