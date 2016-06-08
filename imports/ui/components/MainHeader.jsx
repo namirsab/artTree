@@ -7,7 +7,6 @@ const MainHeader = ({ title }) => (
       title={title}
       iconClassNameRight="muidocs-icon-navigation-expand-more"
       className="mainHeader"
-      onLeftIconButtonTouchTap={() => alert('hola')}
     />
 );
 
