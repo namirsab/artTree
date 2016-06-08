@@ -7,7 +7,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 const getTreeAsArray = (collection, treeId) => collection.getTreeAsArray(treeId);
-
 const App = ({ collection }) => (
     <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Tree treeLabel="Test Tree" levels={getTreeAsArray(collection, 'testTree')} />
